@@ -1,4 +1,4 @@
-## v1.0.1
+## v1.0.2
 
 Windows용 파일 완전삭제 유틸리티 첫 릴리즈.
 
@@ -13,8 +13,8 @@ Windows용 파일 완전삭제 유틸리티 첫 릴리즈.
 
 **무결성 검증** — `secure_delete.exe`
 ```
-크기      164,940 bytes
-SHA-256   2c5efdb40d87e4e081501d746741acb749aa8acbe901f11c5e4c69003411292e
+크기      166,030 bytes
+SHA-256   80310feb11d7a49692f7660825a6a2647be4ff7fccd7678c348cd1892f151b46
 ```
 ```powershell
 Get-FileHash .\secure_delete.exe -Algorithm SHA256
@@ -24,5 +24,9 @@ Get-FileHash .\secure_delete.exe -Algorithm SHA256
 - 코드 서명 인증서를 사용하지 않아 첫 실행 시 SmartScreen 경고가 표시될 수 있습니다.
 - SSD·USB 등 플래시 저장장치에서는 완전삭제가 보장되지 않습니다. README의 "한계"를 확인하세요.
 
-**v1.0.1 변경사항**
+**v1.0.2 변경사항**
 - 창 폭 확대(620→700px) 및 컨트롤 재배치 — 안내 문구 잘림 수정
+
+**v1.0.2 변경사항**
+- 창 크기 조절 지원 확인 및 안내 (가장자리 드래그로 확대 가능, 모든 요소 자동 재배치)
+- 창 제목에 버전 표기 (신·구 버전 즉시 판별)

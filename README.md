@@ -46,11 +46,11 @@
 
 배포 바이너리가 변조되지 않았는지 확인하세요. **Releases에서 받은 파일만 신뢰하세요.**
 
-**v1.0.0 · `secure_delete.exe`**
+**v1.0.1 · `secure_delete.exe`**
 
 ```
-크기      186,464 bytes
-SHA-256   5b0b3107c252e706a2a1cd566115fbbf56a0c50169b6331ea9b96017a379e172
+크기      164,940 bytes
+SHA-256   2c5efdb40d87e4e081501d746741acb749aa8acbe901f11c5e4c69003411292e
 ```
 
 확인 방법 (PowerShell):
@@ -74,7 +74,11 @@ Get-FileHash .\secure_delete.exe -Algorithm SHA256
 MinGW-w64 크로스 컴파일:
 
 ```bash
-x86_64-w64-mingw32-gcc src/secure_delete_win.c -o secure_delete.exe \
+# 1) 아이콘 리소스 컴파일 (생략 가능 — 생략 시 기본 아이콘으로 동작)
+x86_64-w64-mingw32-windres app.rc -O coff -o app_res.o
+
+# 2) 본체 컴파일
+x86_64-w64-mingw32-gcc src/secure_delete_win.c app_res.o -o secure_delete.exe \
   -mwindows -O2 -municode \
   -lcomdlg32 -lshell32 -lole32 -lbcrypt -lgdi32 -lcomctl32
 ```

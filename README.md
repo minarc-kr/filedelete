@@ -12,12 +12,18 @@
 
 **[→ 최신 릴리즈에서 내려받기](../../releases/latest)**
 
-| 파일 | 내용 |
-|---|---|
-| `minarc-secure-delete.zip` | 실행파일 + 사용법 + README + 소스코드 |
-| `mypccleaner.exe` | 실행파일 단독 |
+| 파일 | 플랫폼 | 내용 |
+|---|---|---|
+| `minarc-secure-delete.zip` | Windows | 실행파일 + 사용법 + README + 소스코드 |
+| `mypccleaner.exe` | Windows | 실행파일 단독 |
+| `mypccleaner-mac.zip` | macOS | 앱(.app) + 스크립트(.command) + 사용법 |
 
-요구사항: Windows 10 / 11 (64비트). Windows 11 ARM에서도 호환 실행됩니다.
+요구사항: Windows 10 / 11 (64비트, ARM 호환) 또는 macOS 10.13 이상.
+두 버전 모두 설치가 필요 없습니다.
+
+### macOS 버전
+
+macOS 기본 기능(AppleScript · 셸)만 사용하는 스크립트 기반 앱으로, 파이썬 등 설치가 필요 없습니다. 서명되지 않은 앱이라 **첫 실행 시 `내PC클리너.app`을 우클릭 → [열기] → [열기]** 로 한 번 허용해야 합니다(이후 더블클릭). 자세한 내용은 `mac/사용법-맥.txt` 참고.
 
 ---
 

@@ -1,17 +1,21 @@
 ## v1.1.0
 
+**이름 변경**
+- 유틸리티 이름을 **내PC클리너**로 변경했습니다.
+- 실행파일 이름을 `mypccleaner.exe`로 변경했습니다. (기능은 동일)
+
 **버그 수정**
 - **'폴더 통째로' 선택 시 폴더가 남던 문제 수정.** 이전에는 폴더 안의 파일만 지워지고, 하위 폴더와 선택한 폴더 자체는 그대로 남았습니다. 이제 파일을 모두 안전삭제한 뒤 남은 빈 하위 폴더와 선택한 폴더까지 모두 제거합니다.
 - 빈 폴더만 선택해도 해당 폴더가 제거되도록 개선.
 - 완료 메시지에 제거한 폴더 개수 표시, 삭제 확인창에 폴더 제거 안내 추가.
 
-**무결성 검증** — `secure_delete.exe`
+**무결성 검증** — `mypccleaner.exe`
 ```
 크기      167,886 bytes
-SHA-256   44b50056159670a20865c0bd076535cf3fd3be47ab5558ff5b0d330b0c5a84ac
+SHA-256   e303f578f8d51455135e74fa45da867c7c4a73044e68f2e677cf7bdf858d8cd6
 ```
 ```powershell
-Get-FileHash .\secure_delete.exe -Algorithm SHA256
+Get-FileHash .\mypccleaner.exe -Algorithm SHA256
 ```
 
 ---
@@ -29,13 +33,13 @@ Windows용 파일 완전삭제 유틸리티 첫 릴리즈.
 **요구사항**
 - Windows 10 / 11 (64비트), Windows 11 ARM 호환
 
-**무결성 검증** — `secure_delete.exe`
+**무결성 검증** — `mypccleaner.exe`
 ```
 크기      166,030 bytes
 SHA-256   80310feb11d7a49692f7660825a6a2647be4ff7fccd7678c348cd1892f151b46
 ```
 ```powershell
-Get-FileHash .\secure_delete.exe -Algorithm SHA256
+Get-FileHash .\mypccleaner.exe -Algorithm SHA256
 ```
 
 **참고**

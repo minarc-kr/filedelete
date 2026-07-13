@@ -1,4 +1,4 @@
-# 안전하게 파일 지우기 (Secure File Eraser)
+# 내PC클리너 (안전하게 파일 지우기)
 
 고른 파일을 무작위 데이터로 여러 번 덮어쓴 뒤 삭제해, 일반 복구 프로그램으로는 되살릴 수 없게 만드는 Windows 유틸리티입니다. 설치 없이 실행되는 단일 `.exe`입니다.
 
@@ -15,7 +15,7 @@
 | 파일 | 내용 |
 |---|---|
 | `minarc-secure-delete.zip` | 실행파일 + 사용법 + README + 소스코드 |
-| `secure_delete.exe` | 실행파일 단독 |
+| `mypccleaner.exe` | 실행파일 단독 |
 
 요구사항: Windows 10 / 11 (64비트). Windows 11 ARM에서도 호환 실행됩니다.
 
@@ -23,7 +23,7 @@
 
 ## 사용법
 
-1. `secure_delete.exe` 실행
+1. `mypccleaner.exe` 실행
 2. **파일 고르기**로 파일 선택 (Ctrl/Shift로 다중 선택) 또는 **폴더 통째로**
 3. 목록 확인 후 **지우기** → 확인
 
@@ -48,17 +48,17 @@
 
 배포 바이너리가 변조되지 않았는지 확인하세요. **Releases에서 받은 파일만 신뢰하세요.**
 
-**v1.1.0 · `secure_delete.exe`**
+**v1.1.0 · `mypccleaner.exe`**
 
 ```
 크기      167,886 bytes
-SHA-256   44b50056159670a20865c0bd076535cf3fd3be47ab5558ff5b0d330b0c5a84ac
+SHA-256   e303f578f8d51455135e74fa45da867c7c4a73044e68f2e677cf7bdf858d8cd6
 ```
 
 확인 방법 (PowerShell):
 
 ```powershell
-Get-FileHash .\secure_delete.exe -Algorithm SHA256
+Get-FileHash .\mypccleaner.exe -Algorithm SHA256
 ```
 
 이 값과 다르면 실행하지 마세요.
@@ -80,7 +80,7 @@ MinGW-w64 크로스 컴파일:
 x86_64-w64-mingw32-windres app.rc -O coff -o app_res.o
 
 # 2) 본체 컴파일
-x86_64-w64-mingw32-gcc src/secure_delete_win.c app_res.o -o secure_delete.exe \
+x86_64-w64-mingw32-gcc src/secure_delete_win.c app_res.o -o mypccleaner.exe \
   -mwindows -O2 -municode \
   -lcomdlg32 -lshell32 -lole32 -lbcrypt -lgdi32 -lcomctl32
 ```

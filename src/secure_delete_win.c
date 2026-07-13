@@ -1,12 +1,12 @@
 /*
- * 안전하게 파일 지우기 (Secure File Eraser) - Windows 네이티브 GUI
+ * 내PC클리너 (안전하게 파일 지우기) - Windows 네이티브 GUI
  * ------------------------------------------------------------------
  * 고른 파일을 무작위 데이터로 7회 덮어쓴 뒤 삭제하여 일반 복구
  * 프로그램으로는 되살릴 수 없게 만듭니다. 파이썬 등 어떤 설치도
  * 필요 없이 단독 실행되는 .exe 입니다.
  *
  * 크로스 컴파일:
- *   x86_64-w64-mingw32-gcc secure_delete_win.c -o secure_delete.exe \
+ *   x86_64-w64-mingw32-gcc secure_delete_win.c -o mypccleaner.exe \
  *     -mwindows -O2 -municode \
  *     -lcomdlg32 -lshell32 -lole32 -lbcrypt -lgdi32 -lcomctl32
  */
@@ -441,13 +441,13 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
             CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Malgun Gothic");
 
         HWND title = CreateWindowW(L"STATIC",
-            L"🧹 안전하게 파일 지우기",
+            L"🧹 내PC클리너",
             WS_CHILD | WS_VISIBLE | SS_CENTER,
             20, 16, 664, 44, hwnd, (HMENU)IDC_TITLE, NULL, NULL);
         set_font(title, g_titleFont);
 
         HWND sub = CreateWindowW(L"STATIC",
-            L"① 파일을 고르고  ②  지우기 버튼을 누르세요. 한 번 지우면 되살릴 수 없어요.",
+            L"안전하게 파일 지우기 · ① 파일을 고르고  ②  지우기 버튼을 누르세요. 한 번 지우면 되살릴 수 없어요.",
             WS_CHILD | WS_VISIBLE | SS_CENTER,
             20, 62, 664, 24, hwnd, (HMENU)IDC_SUB, NULL, NULL);
         set_font(sub, g_font);
@@ -552,7 +552,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE hPrev,
     RegisterClassW(&wc);
 
     HWND hwnd = CreateWindowW(L"SecureEraserWnd",
-        L"안전하게 파일 지우기 v1.1.0",
+        L"내PC클리너 v1.1.0",
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, 720, 580,
         NULL, NULL, hInst, NULL);

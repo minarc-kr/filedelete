@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-완전삭제 (안전하게 파일 지우기)
+내PC클리너 (안전하게 파일 지우기) — 파일 완전삭제 유틸리티
 ============================================
 고른 파일을 무작위 데이터로 여러 번 덮어쓴 뒤 지워서
 일반 복구 프로그램으로는 되살릴 수 없게 만드는 프로그램입니다.
@@ -196,15 +196,15 @@ def run_gui():
 
     BG = "#f4f7fb"
     root = tk.Tk()
-    root.title("안전하게 파일 지우기")
+    root.title("내PC클리너")
     root.geometry("640x600")
     root.minsize(560, 560)
     root.configure(bg=BG)
 
     # ----- 제목 -----
-    tk.Label(root, text="🧹 안전하게 파일 지우기",
-             font=("Arial", 22, "bold"), bg=BG, fg="#1a3d5c").pack(pady=(18, 4))
-    tk.Label(root, text="한 번 지우면 되살릴 수 없어요. 순서대로 눌러 보세요!",
+    tk.Label(root, text="🧹 내PC클리너",
+             font=("Arial", 22, "bold"), bg=BG, fg="#1a3d5c").pack(pady=(18, 2))
+    tk.Label(root, text="안전하게 파일 지우기 · 한 번 지우면 되살릴 수 없어요. 순서대로 눌러 보세요!",
              font=("Arial", 12), bg=BG, fg="#4a6070").pack(pady=(0, 12))
 
     # ----- ① 파일 고르기 -----

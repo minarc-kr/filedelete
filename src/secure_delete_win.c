@@ -350,50 +350,50 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
         HWND title = CreateWindowW(L"STATIC",
             L"🧹 안전하게 파일 지우기",
             WS_CHILD | WS_VISIBLE | SS_CENTER,
-            20, 16, 560, 44, hwnd, (HMENU)IDC_TITLE, NULL, NULL);
+            20, 16, 644, 44, hwnd, (HMENU)IDC_TITLE, NULL, NULL);
         set_font(title, g_titleFont);
 
         HWND sub = CreateWindowW(L"STATIC",
             L"① 파일을 고르고  ②  지우기 버튼을 누르세요. 한 번 지우면 되살릴 수 없어요.",
             WS_CHILD | WS_VISIBLE | SS_CENTER,
-            20, 62, 560, 24, hwnd, (HMENU)IDC_SUB, NULL, NULL);
+            20, 62, 644, 24, hwnd, (HMENU)IDC_SUB, NULL, NULL);
         set_font(sub, g_font);
 
         HWND bPick = CreateWindowW(L"BUTTON", L"📁 파일 고르기",
             WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-            30, 96, 160, 44, hwnd, (HMENU)IDC_PICK, NULL, NULL);
+            30, 96, 200, 44, hwnd, (HMENU)IDC_PICK, NULL, NULL);
         set_font(bPick, g_font);
 
         HWND bFolder = CreateWindowW(L"BUTTON", L"🗂 폴더 통째로",
             WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-            200, 96, 160, 44, hwnd, (HMENU)IDC_FOLDER, NULL, NULL);
+            240, 96, 200, 44, hwnd, (HMENU)IDC_FOLDER, NULL, NULL);
         set_font(bFolder, g_font);
 
         HWND bClear = CreateWindowW(L"BUTTON", L"🧽 목록 비우기",
             WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-            370, 96, 150, 44, hwnd, (HMENU)IDC_CLEAR, NULL, NULL);
+            450, 96, 200, 44, hwnd, (HMENU)IDC_CLEAR, NULL, NULL);
         set_font(bClear, g_font);
 
         g_list = CreateWindowW(L"LISTBOX", L"",
             WS_CHILD | WS_VISIBLE | WS_BORDER | WS_VSCROLL |
             LBS_NOSEL | LBS_NOINTEGRALHEIGHT,
-            30, 152, 540, 250, hwnd, (HMENU)IDC_LIST, NULL, NULL);
+            30, 152, 620, 250, hwnd, (HMENU)IDC_LIST, NULL, NULL);
         set_font(g_list, g_font);
 
         g_status = CreateWindowW(L"STATIC", L"고른 파일: 0개",
             WS_CHILD | WS_VISIBLE | SS_LEFT,
-            30, 410, 540, 24, hwnd, (HMENU)IDC_STATUS, NULL, NULL);
+            30, 410, 620, 24, hwnd, (HMENU)IDC_STATUS, NULL, NULL);
         set_font(g_status, g_font);
 
         HWND bDel = CreateWindowW(L"BUTTON", L"🗑  지우기",
             WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-            30, 440, 540, 56, hwnd, (HMENU)IDC_DELETE, NULL, NULL);
+            30, 440, 620, 56, hwnd, (HMENU)IDC_DELETE, NULL, NULL);
         set_font(bDel, g_titleFont);
 
         HWND warn = CreateWindowW(L"STATIC",
             L"※ USB·SD카드·SSD는 기술적 특성상 완전삭제가 100% 보장되지 않을 수 있어요.",
             WS_CHILD | WS_VISIBLE | SS_CENTER,
-            20, 506, 560, 22, hwnd, (HMENU)IDC_WARN, NULL, NULL);
+            20, 506, 644, 22, hwnd, (HMENU)IDC_WARN, NULL, NULL);
         set_font(warn, g_font);
         return 0;
     }
@@ -436,7 +436,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE hPrev,
     HWND hwnd = CreateWindowW(L"SecureEraserWnd",
         L"안전하게 파일 지우기",
         WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-        CW_USEDEFAULT, CW_USEDEFAULT, 620, 580,
+        CW_USEDEFAULT, CW_USEDEFAULT, 700, 580,
         NULL, NULL, hInst, NULL);
     if (!hwnd) return 1;
 

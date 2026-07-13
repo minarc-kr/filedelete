@@ -96,12 +96,50 @@ def collect_files(paths):
     return files
 
 
+def remove_dir_tree(folder):
+    """파일을 모두 지운 뒤 남은 빈 하위 폴더와 폴더 자체를 아래에서
+    위로 제거한다. 제거한 폴더 개수를 반환한다."""
+    removed = 0
+    if not os.path.isdir(folder) or os.path.islink(folder):
+        return 0
+    for root, dirs, names in os.walk(folder, topdown=False):
+        for name in names:
+            fp = os.path.join(root, name)
+            try:
+                os.chmod(fp, 0o600)
+            except Exception:
+                pass
+            try:
+                os.remove(fp)
+            except Exception:
+                pass
+        for d in dirs:
+            dp = os.path.join(root, d)
+            try:
+                if os.path.islink(dp):
+                    os.unlink(dp)
+                else:
+                    os.rmdir(dp)
+                removed += 1
+            except Exception:
+                pass
+    try:
+        os.rmdir(folder)
+        removed += 1
+    except Exception:
+        pass
+    return removed
+
+
 # ----------------------------------------------------------------------
 # 명령줄(CLI) 모드 — 어른/전문가용
 # ----------------------------------------------------------------------
 def run_cli(paths, passes, assume_yes):
+    # '폴더 통째로' 대상: 삭제 후 폴더 자체도 제거
+    selected_folders = [p for p in paths
+                        if os.path.isdir(p) and not os.path.islink(p)]
     files = collect_files(paths)
-    if not files:
+    if not files and not selected_folders:
         print("삭제할 파일이 없습니다.")
         return 1
 
@@ -130,8 +168,14 @@ def run_cli(paths, passes, assume_yes):
         except Exception as e:
             print(f"  [X ] 실패: {fpath}  -> {e}")
             fail += 1
+
+    # 선택한 폴더의 남은 빈 폴더 및 폴더 자체 제거
+    folders_removed = 0
+    for folder in selected_folders:
+        folders_removed += remove_dir_tree(folder)
+
     print("-" * 60)
-    print(f"완료: 성공 {ok}건, 실패 {fail}건")
+    print(f"완료: 성공 {ok}건, 실패 {fail}건, 제거한 폴더 {folders_removed}개")
     return 0 if fail == 0 else 2
 
 
@@ -147,7 +191,8 @@ def run_gui():
         print('예)  python secure_delete.py "파일경로"')
         return 1
 
-    selected = []  # 삭제할 파일 목록
+    selected = []          # 삭제할 파일 목록
+    selected_folders = []  # '폴더 통째로'로 고른 폴더 (삭제 후 폴더 자체도 제거)
 
     BG = "#f4f7fb"
     root = tk.Tk()
@@ -190,10 +235,13 @@ def run_gui():
         for f in collect_files([folder]):
             if f not in selected:
                 selected.append(f)
+        if folder not in selected_folders:
+            selected_folders.append(folder)  # 폴더 자체도 삭제하도록 기록
         refresh()
 
     def clear_all():
         selected.clear()
+        selected_folders.clear()
         refresh()
 
     tk.Button(pick_row, text="📁 파일 고르기", font=("Arial", 13, "bold"),
@@ -234,12 +282,17 @@ def run_gui():
     status_label.pack()
 
     def do_delete():
-        if not selected:
-            messagebox.showinfo("잠깐!", "먼저 지울 파일을 골라 주세요. 😊")
+        if not selected and not selected_folders:
+            messagebox.showinfo("잠깐!", "먼저 지울 파일이나 폴더를 골라 주세요. 😊")
             return
 
-        msg = (f"고른 파일 {len(selected)}개를 완전히 지웁니다.\n\n"
-               "한 번 지우면 다시 살릴 수 없어요.\n정말 지울까요?")
+        if selected_folders:
+            msg = (f"고른 파일 {len(selected)}개를 완전히 지우고,\n"
+                   f"선택한 폴더 {len(selected_folders)}개(하위 폴더 포함)도 제거합니다.\n\n"
+                   "한 번 지우면 다시 살릴 수 없어요.\n정말 지울까요?")
+        else:
+            msg = (f"고른 파일 {len(selected)}개를 완전히 지웁니다.\n\n"
+                   "한 번 지우면 다시 살릴 수 없어요.\n정말 지울까요?")
         if not messagebox.askyesno("정말 지울까요?", msg, icon="warning"):
             return
 
@@ -258,15 +311,30 @@ def run_gui():
                 errors.append(f"{os.path.basename(fpath)} -> {e}")
             root.update_idletasks()
 
+        # 선택한 폴더의 남은 빈 폴더 및 폴더 자체 제거
+        folders_removed = 0
+        if selected_folders:
+            status_label.config(text="폴더 정리 중...")
+            root.update_idletasks()
+            for folder in list(selected_folders):
+                folders_removed += remove_dir_tree(folder)
+            selected_folders.clear()
+
         refresh()
         status_label.config(text="")
         if fail == 0:
-            messagebox.showinfo("완료!", f"파일 {ok}개를 안전하게 지웠어요! 🎉")
+            if folders_removed > 0:
+                messagebox.showinfo(
+                    "완료!",
+                    f"파일 {ok}개와 폴더 {folders_removed}개를 안전하게 지웠어요! 🎉")
+            else:
+                messagebox.showinfo("완료!", f"파일 {ok}개를 안전하게 지웠어요! 🎉")
         else:
             detail = "\n".join(errors[:8])
             messagebox.showwarning(
                 "일부 실패",
-                f"지운 파일: {ok}개\n못 지운 파일: {fail}개\n\n{detail}")
+                f"지운 파일: {ok}개\n못 지운 파일: {fail}개\n"
+                f"제거한 폴더: {folders_removed}개\n\n{detail}")
 
     tk.Button(root, text="🗑  지우기", font=("Arial", 18, "bold"),
               bg="#e74c3c", fg="white", activebackground="#c0392b",

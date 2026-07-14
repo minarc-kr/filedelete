@@ -14,7 +14,7 @@
 
 | 파일 | 플랫폼 | 내용 |
 |---|---|---|
-| `minarc-secure-delete.zip` | Windows | 실행파일 + 사용법 + README + 소스코드 |
+| `mypccleaner.zip` | Windows | 실행파일 (zip, 다운로드 권장) |
 | `mypccleaner.exe` | Windows | 실행파일 단독 |
 | `mypccleaner-mac.zip` | macOS | 앱(.app) + 스크립트(.command) + 사용법 |
 
